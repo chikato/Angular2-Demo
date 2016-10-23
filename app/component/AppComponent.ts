@@ -1,8 +1,12 @@
 import {Component} from '@angular/core';
 
 @Component({
+    moduleId: module.id,
     selector: 'my-app',
-    templateUrl: 'app/template/AppComponent.html'
+    templateUrl: '../template/AppComponent.html',
+    styleUrls: ['../css/AppComponent.css']
 })
 
-export class AppComponent {}
+export class AppComponent {
+    title = 'Tour of Heroes';
+}

@@ -10,10 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var HeroService_1 = require("../service/HeroService");
+var router_1 = require("@angular/router");
 var HeroComponent = (function () {
-    function HeroComponent(heroServices) {
+    function HeroComponent(heroServices, router) {
         this.heroServices = heroServices;
-        this.title = 'Tour of Heroes';
+        this.router = router;
     }
     HeroComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -22,6 +23,9 @@ var HeroComponent = (function () {
     HeroComponent.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
     };
+    HeroComponent.prototype.gotoDetail = function () {
+        this.router.navigate(['/detail', this.selectedHero.id]);
+    };
     HeroComponent = __decorate([
         core_1.Component({
             selector: "hero",
@@ -29,7 +33,7 @@ var HeroComponent = (function () {
             styleUrls: ['app/css/HeroComponent.css'],
             providers: [HeroService_1.HeroService]
         }), 
-        __metadata('design:paramtypes', [HeroService_1.HeroService])
+        __metadata('design:paramtypes', [HeroService_1.HeroService, router_1.Router])
     ], HeroComponent);
     return HeroComponent;
 }());
