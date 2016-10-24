@@ -1,4 +1,4 @@
-// import './service/rxjs-extensions';
+import './rxjs-extensions';
 
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import {HeroDetailComponent} from './component/HeroDetailComponent';
 import {DashboardComponent} from "./component/DashboardComponent";
 import {HeroService} from "./service/HeroService";
 import {HeroSearchComponent} from "./component/HeroSearchComponent";
+import {HeroSearchService} from "./service/HeroSearchService";
 
 
 @NgModule({
@@ -36,7 +37,10 @@ import {HeroSearchComponent} from "./component/HeroSearchComponent";
         HeroSearchComponent
     ],
 
-    providers: [HeroService],
+    providers: [
+        HeroService,
+        HeroSearchService
+    ],
 
     bootstrap: [AppComponent]
 })

@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {Observable, Subject} from "rxjs";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
+
 import {HeroSearchService} from "../service/HeroSearchService";
 import {Hero} from "../model/HeroModel";
 import {Router} from "@angular/router";
@@ -7,7 +9,7 @@ import {Router} from "@angular/router";
 @Component({
     selector: "hero-search",
     templateUrl: "app/template/HeroSearchComponent.html",
-    styleUrls: ["app/template/HeroSearchComponent.css"]
+    styleUrls: ["app/css/HeroSearchComponent.css"]
 })
 
 export class HeroSearchComponent implements OnInit {
@@ -24,6 +26,22 @@ export class HeroSearchComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.heroes
+        this.heroes = this.searchTerms
+            .debounceTime(300)
+            .distinctUntilChanged()
+            .switchMap(
+                term => term ?
+                    this.heroSearchService.search(term)
+                    : Observable.of<Hero[]>([])
+            )
+            .catch(error => {
+                    console.log(error);
+                    return Observable.of<Hero[]>([]);
+                }
+            );
+    }
+
+    gotoDetail(hero: Hero): void {
+        this.router.navigate(["/detail", hero.id]);
     }
 }

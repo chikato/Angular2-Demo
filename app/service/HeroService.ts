@@ -5,7 +5,6 @@ import {Headers, Http} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-
 export class HeroService {
 
     private headers = new Headers({"Content-Type": "application/json"});

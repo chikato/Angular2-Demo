@@ -1,4 +1,3 @@
-// import './service/rxjs-extensions';
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+require('./rxjs-extensions');
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
@@ -23,6 +23,7 @@ var HeroDetailComponent_1 = require('./component/HeroDetailComponent');
 var DashboardComponent_1 = require("./component/DashboardComponent");
 var HeroService_1 = require("./service/HeroService");
 var HeroSearchComponent_1 = require("./component/HeroSearchComponent");
+var HeroSearchService_1 = require("./service/HeroSearchService");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -42,7 +43,10 @@ var AppModule = (function () {
                 HeroDetailComponent_1.HeroDetailComponent,
                 HeroSearchComponent_1.HeroSearchComponent
             ],
-            providers: [HeroService_1.HeroService],
+            providers: [
+                HeroService_1.HeroService,
+                HeroSearchService_1.HeroSearchService
+            ],
             bootstrap: [AppComponent_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
