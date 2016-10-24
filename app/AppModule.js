@@ -1,3 +1,4 @@
+// import './service/rxjs-extensions';
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -11,15 +12,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var http_1 = require("@angular/http");
+var AppRoutingModule_1 = require("./AppRoutingModule");
+// Imports for loading & configuring the in-memory web api
+var angular_in_memory_web_api_1 = require('angular-in-memory-web-api');
+var in_memory_data_service_1 = require('./service/in-memory-data.service');
 var AppComponent_1 = require('./component/AppComponent');
 var HeroComponent_1 = require('./component/HeroComponent');
 var HeroDetailComponent_1 = require('./component/HeroDetailComponent');
 var DashboardComponent_1 = require("./component/DashboardComponent");
 var HeroService_1 = require("./service/HeroService");
-var AppRoutingModule_1 = require("./AppRoutingModule");
-var http_1 = require("@angular/http");
-var in_memory_web_api_module_1 = require("angular-in-memory-web-api/in-memory-web-api.module");
-var in_memory_data_service_1 = require("./service/in-memory-data.service");
+var HeroSearchComponent_1 = require("./component/HeroSearchComponent");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,13 +33,14 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 AppRoutingModule_1.AppRoutingModule,
                 http_1.HttpModule,
-                in_memory_web_api_module_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService)
+                angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService)
             ],
             declarations: [
                 AppComponent_1.AppComponent,
                 DashboardComponent_1.DashboardComponent,
                 HeroComponent_1.HeroComponent,
-                HeroDetailComponent_1.HeroDetailComponent
+                HeroDetailComponent_1.HeroDetailComponent,
+                HeroSearchComponent_1.HeroSearchComponent
             ],
             providers: [HeroService_1.HeroService],
             bootstrap: [AppComponent_1.AppComponent]

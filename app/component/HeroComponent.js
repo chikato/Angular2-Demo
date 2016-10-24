@@ -23,6 +23,22 @@ var HeroComponent = (function () {
     HeroComponent.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
     };
+    HeroComponent.prototype.add = function (name) {
+        var _this = this;
+        this.heroServices.create(name)
+            .then(function (hero) {
+            _this.heroes.push(hero);
+            _this.selectedHero = null;
+        });
+    };
+    HeroComponent.prototype.delete = function (hero) {
+        var _this = this;
+        this.heroServices.delete(hero.id)
+            .then(function () {
+            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
+            _this.selectedHero === hero && (_this.selectedHero = null);
+        });
+    };
     HeroComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedHero.id]);
     };

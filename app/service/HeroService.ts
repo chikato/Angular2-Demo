@@ -8,24 +8,49 @@ import 'rxjs/add/operator/toPromise';
 
 export class HeroService {
 
+    private headers = new Headers({"Content-Type": "application/json"});
     private heroUrl:string = "app/heroes";
 
     constructor(private http: Http) {}
 
     getHeroes(): Promise<Hero[]> {
-        // return Promise.resolve(HEROES);
         return this.http.get(this.heroUrl)
                     .toPromise()
                     .then(response => response.json().data as Hero[])
                     .catch(this.handleError);
     }
 
+    getHeroesSlowly(): Promise<Hero[]> {
+        return new Promise<Hero[]>(resolve => setTimeout(resolve, 2000)).then(() => this.getHeroes());
+    }
+
     getHero(id: number): Promise<Hero> {
         return this.getHeroes().then(heroes => heroes.find(hero => hero.id === id));
     }
 
-    getHeroesSlowly(): Promise<Hero[]> {
-        return new Promise<Hero[]>(resolve => setTimeout(resolve, 2000)).then(() => this.getHeroes());
+    update(hero:Hero): Promise<Hero> {
+        const url = `${this.heroUrl}/${hero.id}`;
+        return this.http
+            .put(url, JSON.stringify(hero), {headers: this.headers})
+            .toPromise()
+            .then(() => hero)
+            .catch(this.handleError);
+    }
+
+    create(heroName: string): Promise<Hero> {
+        return this.http
+            .post(this.heroUrl, JSON.stringify({name: heroName}), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
+
+    delete(id: number): Promise<void> {
+        const url = `${this.heroUrl}/${id}`;
+        return this.http.delete(url, {headers: this.headers})
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
